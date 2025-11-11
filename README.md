@@ -1,4 +1,4 @@
-# Turiy.chat – UPS Assignment Submission
+# Turiy.chat – Semantic RAG System
 
 ## Overview
 Turiy.chat is a Retrieval-Augmented Generation (RAG) application that ingests PDF reports, builds hybrid vector/sparse indexes, and serves a NotebookLM-inspired chat UI. The system supports FAQ fast lane answers, hybrid retrieval, table-to-graph visualization, and conversation logging.
@@ -63,7 +63,7 @@ During startup:
 - The JSON should map normalized question strings to answer text, e.g.:
   ```json
   {
-    "what is this app": "I am the 'GRI-Agent'..."
+    "what is this app": "I am the 'turiy.chat'..."
   }
   ```
 - After editing `faq.json`, restart the backend (or call `engine.ensure_faq_initialized()` via a REPL) so the cache reloads. Keep FAQs concise and citation-ready.
@@ -126,5 +126,5 @@ turiy_architecture.md   # Architecture diagram overview
 - Streaming responses and prompt customization not yet exposed (see `new_features.md`).
 
 ## License / Attribution
-This submission is provided as part of the UPS assignment. External libraries retain their respective licenses (FastAPI, LangChain, PyMuPDF, Matplotlib, etc.). Configure API keys responsibly and review provider terms (Google Generative AI, OpenAI, Supabase) before deployment.
+External libraries retain their respective licenses (FastAPI, LangChain, PyMuPDF, Matplotlib, etc.). Configure API keys responsibly and review provider terms (Google Generative AI, OpenAI, Supabase) before deployment.
 
