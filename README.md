@@ -63,7 +63,7 @@ During startup:
 - The JSON should map normalized question strings to answer text, e.g.:
   ```json
   {
-    "what is this app": "I am the 'GRI-Agent'..."
+    "what is this app": "I am the 'turiy.chat'..."
   }
   ```
 - After editing `faq.json`, restart the backend (or call `engine.ensure_faq_initialized()` via a REPL) so the cache reloads. Keep FAQs concise and citation-ready.
