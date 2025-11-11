@@ -1,4 +1,4 @@
-# Turiy.chat – UPS Assignment Submission
+# Turiy.chat – Semantic RAG System
 
 ## Overview
 Turiy.chat is a Retrieval-Augmented Generation (RAG) application that ingests PDF reports, builds hybrid vector/sparse indexes, and serves a NotebookLM-inspired chat UI. The system supports FAQ fast lane answers, hybrid retrieval, table-to-graph visualization, and conversation logging.
