@@ -1,0 +1,40 @@
+# --- Server ---
+fastapi
+uvicorn[standard]
+
+# --- Environment Variables ---
+python-dotenv
+
+# --- LangChain Core & Chains ---
+langchain-classic
+langchain-core
+
+# --- LLM & Embedding Model Providers ---
+langchain-openai
+langchain-google-genai
+
+# --- Document Loading & Splitting ---
+langchain-community
+langchain-text-splitters
+pypdf
+pymupdf
+
+# --- Table Extraction & Data Processing ---
+camelot-py
+pandas
+tabulate
+
+# --- Vector Database ---
+chromadb
+faiss-cpu
+rank-bm25
+
+python-multipart
+supabase
+sentence-transformers
+torch
+einops
+psycopg2-binary
+pytest
+
+matplotlib

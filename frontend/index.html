@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>turiy.chat</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-indigo-50 font-sans">
+    <div class="app-container flex flex-col h-screen bg-indigo-50">
+      <header
+        id="app-header"
+        class="app-header flex-shrink-0 bg-indigo-50 h-16 flex items-center justify-start px-6 relative"
+      >
+        <button
+          id="mobile-menu-btn"
+          class="absolute left-4 lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100"
+          aria-label="Toggle Document Pane"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="flex items-center">
+          <img
+            src="logo.png"
+            alt="turiy.chat Logo"
+            class="h-8 w-8 mr-3 rounded-full"
+          />
+          <h1 class="text-2xl font-bold text-gray-800">turiy.chat</h1>
+        </div>
+
+        <button
+          id="mobile-source-btn"
+          class="absolute right-4 lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100"
+          aria-label="Toggle Source Pane"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"
+            ></path>
+            <path d="M8 7h6"></path>
+            <path d="M8 11h8"></path>
+          </svg>
+        </button>
+      </header>
+
+      <main class="app-body flex-grow flex flex-row overflow-hidden relative p-1.5 space-x-1.5">
+        <aside
+          id="document-pane"
+          class="left-pane flex flex-col h-full bg-white border shadow-md rounded-lg transition-all duration-300 ease-in-out w-72 absolute lg:static inset-y-0 left-0 z-20 -translate-x-full lg:translate-x-0"
+        >
+          <div class="flex-shrink-0 flex justify-between items-center p-4 border-b h-14">
+            <h2 class="text-lg font-semibold">Documents</h2>
+            <button
+              id="collapse-left-btn"
+              class="p-2 rounded-md text-gray-600 hover:bg-gray-100 hidden lg:block"
+              aria-label="Collapse Document Pane"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m15 18-6-6 6-6"></path>
+              </svg>
+            </button>
+            <button
+              id="mobile-close-left-btn"
+              class="p-2 rounded-md text-gray-600 hover:bg-gray-100 lg:hidden"
+              aria-label="Close Document Pane"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <div class="p-4 flex-shrink-0">
+            <button
+              id="upload-button"
+              class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center space-x-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span>Upload Documents</span>
+            </button>
+            <input
+              id="upload-input"
+              type="file"
+              accept=".pdf"
+              class="hidden"
+            />
+          </div>
+
+          <div class="flex-grow overflow-y-auto p-4 space-y-2" id="documents-container">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase">
+              Available Documents
+            </h3>
+            <p class="text-sm text-gray-500">Loading documents…</p>
+          </div>
+
+          <div id="left-pane-footer" class="pane-footer flex-shrink-0 p-4 border-t">
+            <button
+              class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg text-sm whitespace-nowrap w-full"
+            >
+              Re-Build Index
+            </button>
+          </div>
+
+          <button
+            id="expand-left-btn"
+            class="absolute top-1/2 -translate-y-1/2 left-full z-10 p-1 bg-white border border-l-0 rounded-r-md text-gray-600 hover:bg-gray-100 hidden"
+            aria-label="Expand Document Pane"
+            title="Expand Document Pane"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+          </button>
+        </aside>
+
+        <section
+          class="middle-pane flex-grow flex flex-col h-full bg-white border shadow-md rounded-lg overflow-hidden"
+        >
+          <div class="flex-shrink-0 flex justify-between items-center p-3 border-b h-14 px-4">
+            <h2 class="text-lg font-semibold">turiy.chat</h2>
+            <div class="flex items-center space-x-1 bg-gray-200 rounded-full p-1">
+              <button
+                id="model-btn-standard"
+                class="py-1 px-4 rounded-full text-sm font-medium bg-blue-600 text-white shadow-sm"
+                aria-pressed="true"
+              >
+                turiy-standard
+              </button>
+              <button
+                id="model-btn-thinking"
+                class="py-1 px-4 rounded-full text-sm font-medium text-gray-600"
+                aria-pressed="false"
+              >
+                turiy-thinking
+              </button>
+            </div>
+          </div>
+
+          <div id="chat-history" class="flex-grow overflow-y-auto p-4 space-y-6">
+            <div class="flex items-start space-x-3 max-w-xl">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold text-sm">
+                T
+              </div>
+              <div class="flex-grow p-4 bg-gray-50 rounded-r-lg rounded-bl-lg shadow-sm">
+                <p class="text-gray-800">
+                  Hello! I'm Turiy. I can help you analyze and discuss the documents you've uploaded. What would you like to know?
+                </p>
+                <div class="action-bar flex items-center space-x-2 text-gray-500 mt-3 pt-2 border-t border-gray-200">
+                  <button
+                    class="p-1 rounded-md hover:bg-gray-200"
+                    data-action="copy"
+                    aria-label="Copy message"
+                    title="Copy message"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="pointer-events-none"
+                    >
+                      <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                    </svg>
+                  </button>
+                  <button
+                    class="p-1 rounded-md hover:bg-gray-200"
+                    data-action="thumb-up"
+                    aria-label="Good response"
+                    title="Good response"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="pointer-events-none"
+                    >
+                      <path d="M7 10v12"></path>
+                      <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h3Z"></path>
+                    </svg>
+                  </button>
+                  <button
+                    class="p-1 rounded-md hover:bg-gray-200"
+                    data-action="thumb-down"
+                    aria-label="Bad response"
+                    title="Bad response"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="pointer-events-none"
+                    >
+                      <path d="M17 14V2"></path>
+                      <path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3Z"></path>
+                    </svg>
+                  </button>
+                  <button
+                    class="p-1 rounded-md hover:bg-gray-200"
+                    data-action="regenerate"
+                    aria-label="Regenerate with thinking model"
+                    title="Regenerate with thinking model"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="pointer-events-none"
+                    >
+                      <path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                      <path d="M10 12h.01"></path>
+                      <path d="M12 10v.01"></path>
+                      <path d="M14 12h.01"></path>
+                      <path d="M12 14v.01"></path>
+                      <path d="M10.031 8.916 7.5 12l2.53 3.084"></path>
+                      <path d="m13.97 15.084 2.53-3.084-2.53-3.084"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="chat-input-area" class="pane-footer flex-shrink-0 p-4 border-t bg-white">
+            <div class="relative">
+              <textarea
+                id="chat-input"
+                rows="1"
+                class="w-full border rounded-lg p-3 pr-12 resize-none overflow-y-auto"
+                placeholder="Type your message..."
+              ></textarea>
+              <button
+                id="send-btn"
+                class="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white"
+                aria-label="Send message"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+              <div
+                id="chat-loading"
+                class="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-gray-500 hidden"
+              >
+                <svg
+                  class="animate-spin h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside
+          id="source-pane"
+          class="right-pane flex flex-col h-full bg-white border shadow-md rounded-lg transition-all duration-300 ease-in-out w-72 absolute lg:static inset-y-0 right-0 z-20 translate-x-full lg:translate-x-0"
+        >
+          <div class="flex-shrink-0 flex justify-between items-center p-4 border-b h-14">
+            <h2 class="text-lg font-semibold">Sources</h2>
+            <button
+              id="collapse-right-btn"
+              class="p-2 rounded-md text-gray-600 hover:bg-gray-100 hidden lg:block"
+              aria-label="Collapse Source Pane"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+            </button>
+            <button
+              id="mobile-close-right-btn"
+              class="p-2 rounded-md text-gray-600 hover:bg-gray-100 lg:hidden"
+              aria-label="Close Source Pane"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <div id="source-list" class="flex-grow overflow-y-auto p-4 space-y-3">
+            <div class="source-tile border rounded-lg p-3 cursor-pointer hover:shadow-sm">
+              <div class="flex justify-between items-center text-sm font-semibold text-gray-600">
+                <span>research_paper.pdf, pg. 2</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="chevron transition-transform duration-200"
+                >
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </div>
+              <div class="source-content text-sm text-gray-700 mt-2 space-y-2 max-h-24 overflow-hidden">
+                <p>
+                  ...The primary finding of this study is that <strong>neural networks trained on abstract representations</strong> outperform traditional models in pattern recognition tasks...
+                </p>
+              </div>
+              <div class="source-content-expanded hidden text-sm text-gray-700 mt-2 space-y-2">
+                <p>
+                  ...The primary finding of this study is that <strong>neural networks trained on abstract representations</strong> outperform traditional models in pattern recognition tasks. We also observed a significant reduction in training time when using this method...
+                </p>
+                <p>
+                  Further analysis of the data indicates a secondary finding related to model scalability...
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="right-pane-footer"
+            class="pane-footer flex-shrink-0 p-4 border-t"
+            style="min-height: 84px"
+          >
+            &nbsp;
+          </div>
+
+          <button
+            id="expand-right-btn"
+            class="absolute top-1/2 -translate-y-1/2 right-full z-10 p-1 bg-white border border-r-0 rounded-l-md text-gray-600 hover:bg-gray-100 hidden"
+            aria-label="Expand Source Pane"
+            title="Expand Source Pane"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m15 18-6-6 6-6"></path>
+            </svg>
+          </button>
+        </aside>
+
+        <div id="mobile-overlay" class="fixed inset-0 bg-black/30 z-10 lg:hidden hidden"></div>
+      </main>
+
+      <footer class="flex-shrink-0 flex items-center justify-center w-full p-4 bg-indigo-50">
+        <p class="text-sm text-gray-500">Copyright Shivranjan Kolvankar @ 2025</p>
+      </footer>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"
+      integrity="sha256-5p7cl+PfqmU0zHsGHh18wg8wDttwAkVp8NoIpQeQKbM="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"
+      integrity="sha256-DHdkprdOCi/hTyBC0bYKT1eZq9VHt+2xnJexPIC3xJg="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
+
+

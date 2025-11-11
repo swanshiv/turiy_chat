@@ -1,0 +1,42 @@
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+/* Helper classes for collapsed panes */
+.left-pane.collapsed,
+.right-pane.collapsed {
+  width: 3.5rem !important;
+}
+
+.chart-wrapper {
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.generated-chart {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  background: #ffffff;
+}
+
+.chart-description {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+

@@ -1,0 +1,36 @@
+chunking:
+  standard:
+    chunk_size: 1000
+    chunk_overlap: 250
+  smart:
+    primary_chunk_size: 2000
+    primary_chunk_overlap: 300
+    refinement_delimiter: "<CHUNK>"
+
+retrieval:
+  bm25:
+    k: 20
+  dense:
+    k: 20
+  rrf:
+    k_constant: 60
+    top_n: 10
+
+embeddings:
+  text_model: "nomic-ai/nomic-embed-text-v1.5"
+  vision_model: "nomic-ai/nomic-embed-vision-v1.5"
+
+faiss:
+  index_path: "backend/data/faiss"
+  normalize: true
+
+supabase:
+  enable: true
+  table_documents: "documents"
+  table_chunks: "chunks"
+
+logging:
+  capture_tool_calls: true
+  capture_chunk_ids: true
+  capture_latency: true
+
