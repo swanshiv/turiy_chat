@@ -126,5 +126,5 @@ turiy_architecture.md   # Architecture diagram overview
 - Streaming responses and prompt customization not yet exposed (see `new_features.md`).
 
 ## License / Attribution
-This submission is provided as part of the UPS assignment. External libraries retain their respective licenses (FastAPI, LangChain, PyMuPDF, Matplotlib, etc.). Configure API keys responsibly and review provider terms (Google Generative AI, OpenAI, Supabase) before deployment.
+External libraries retain their respective licenses (FastAPI, LangChain, PyMuPDF, Matplotlib, etc.). Configure API keys responsibly and review provider terms (Google Generative AI, OpenAI, Supabase) before deployment.
 
